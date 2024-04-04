@@ -7,14 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" rel="stylesheet"/>
 </head>
 <body>
-<main class="container-fluid">
+<main class="container">
     <nav>
         <ul>
-            <li style="font-size:2rem"><strong>🏢&nbsp;&nbsp;&nbsp;Meu Ecommerce</strong></li>
+            <li style="font-size:2rem"><strong><a href="{% url 'home' %}">🏢</a>&nbsp;&nbsp;&nbsp;Meu Ecommerce</strong></li>
         </ul>
         <ul>
             <li><a href="#">Sobre</a></li>
-            <li><a href="{% url 'listcategorias' %}">Produtos</a></li>
+            <li><a href="{% url 'listallprod' %}">Produtos</a></li>
         </ul>
     </nav>
     {% block conteudo %}
