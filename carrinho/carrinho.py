@@ -8,15 +8,15 @@ from catproduto.models import Produto
 
 class Carrinho(object):
 
-    def __init__(self):
+    def __init__(self, request):
         """
-        Iniciliza o carrinho de comprar
+        Iniciliza o carrinho de compras
         """
         self.session = request.session
         carrinho = self.session.get(settings.CART_SESSION_ID)
         if not carrinho:
             # salva um carrinho vazio na sessão
-            carrinho = self.session[settings.CART_SESSION_ID] = []
+            carrinho = self.session[settings.CART_SESSION_ID] = {}
         self.carrinho = carrinho
 
     def addProduto(self, produto, quantidade=1, alterarquant=False):

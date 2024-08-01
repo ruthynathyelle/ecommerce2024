@@ -15,6 +15,10 @@
         <ul>
             <li><a href="#">Sobre</a></li>
             <li><a href="{% url 'listallprod' %}">Produtos</a></li>
+            <li><a href="{% url 'carrinhodetalhe' %}">
+                    Carrinho <span>🛒 {{ carrinho|length }}</span>
+                </a>
+            </li>
         </ul>
     </nav>
     {% block conteudo %}

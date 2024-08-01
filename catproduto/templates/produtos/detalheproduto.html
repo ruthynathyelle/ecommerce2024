@@ -14,7 +14,11 @@
             <div id="imggrande"></div>
         </div>
         <p> {{ produto.descricao }}</p>
-        <a href="" role="button" class="success">adicionar ao carrinho</a>
+        <form action="{% url 'carrinhoadd' produto.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="adicionar ao carrinho" role="button"
+                   class="primary">
+        </form>
     </article>
     <script>
         imgprod.onmousemove = function(ev){
