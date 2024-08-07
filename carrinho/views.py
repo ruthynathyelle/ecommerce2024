@@ -24,8 +24,8 @@ class CarrinhoAddFormView(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print("erro!!!!")
-        return redirect('listallprod')
+        # return redirect('listallprod')
+        return super().form_invalid(form)
 
 class CarrinhoRemoveView(View):
 

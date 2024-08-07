@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for item in carrinho %}
-               {% with prod = item.produto %}
+               {% with prod=item.produto %} <!-- tirei os espaços aqui  -->
                 <tr>
                     <td>
                        <a href="{% url 'detalheproduto' prod.slug prod.id %}">
@@ -32,18 +32,21 @@
                     <td>{{ prod.nome }}</td>
                     <!-- Mostrando o campo de formulário para alterar a quant no carrinho -->
                     <td>
+                        <!--
                         <form action="{% url 'carrinhoadd' prod.id %}" method="post">
                             {% csrf_token %}
                             {{ item.alterar.quant }}
                             {{ item.alterar.alterar }}
                             <input type="submit" value="Atualizar" role="button" class="success">
                         </form>
+                        -->
+                        {{ item.quantidade }}
                     </td>
                     <td>R$ {{ item.preco }}</td>
                     <td>R$ {{ carrinho.get_preco_total }}</td>
                     <td>
                         <form action="{% url 'carrinhoremove' prod.id %}" method="post">
-                            {% crsf_token %}
+                            {% csrf_token %} # arrumei aqui
                             <input type="submit" role="button" class="danger" value="Remover">
                         </form>
                     </td>
