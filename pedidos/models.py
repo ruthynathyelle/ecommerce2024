@@ -1,16 +1,15 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from catproduto.models import Produto
 
 
 class Pedido(models.Model):
-    nome = models.CharField(max_length=30)
-    sobrenome = models.CharField(max_length=70)
-    email = models.EmailField()
-    endereco = models.CharField(max_length=200)
-    cep = models.CharField(max_length=10)
-    cidade = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=15)
+    cliente = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    # endereco = models.CharField(max_length=200)
+    # cep = models.CharField(max_length=10)
+    # cidade = models.CharField(max_length=100)
+    # telefone = models.CharField(max_length=15)
     criado = models.DateTimeField(auto_now_add=True)
     atualizado = models.DateTimeField(auto_now=True)
     pago = models.BooleanField(default=False)
@@ -21,7 +20,7 @@ class Pedido(models.Model):
         ordering = ('-criado',)
 
     def __str__(self):
-        return f'Pedido do {self.nome}  {self.sobrenome}'
+        return f'Pedido {self.id}'
 
     def get_total(self):
         return sum(item.get_custo() for item in self.itens_pedido.all())

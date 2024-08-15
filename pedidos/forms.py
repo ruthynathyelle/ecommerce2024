@@ -7,5 +7,4 @@ class PedidoModelForm(forms.ModelForm):
 
     class Meta:
         model = Pedido
-        fields = ['nome', 'sobrenome', 'email',
-                  'endereco', 'telefone', 'cep', 'cidade']
+        fields = []
