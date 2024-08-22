@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
@@ -7,7 +8,7 @@ from pedidos.forms import PedidoModelForm
 from pedidos.models import ItemPedido, Pedido
 
 
-class PedidoCreateView(CreateView):
+class PedidoCreateView(LoginRequiredMixin, CreateView):
     form_class = PedidoModelForm
     success_url = reverse_lazy('resumopedido')
     template_name = 'pedido/formpedido.html'
@@ -15,8 +16,7 @@ class PedidoCreateView(CreateView):
     def form_valid(self, form):
         car = Carrinho(self.request)
         pedido = form.save(commit=False)
-        usuario = self.request.session.get("user")
-        print(usuario)
+        usuario = self.request.user
         pedido.cliente = usuario
         pedido.save()
         for item in car:

@@ -19,6 +19,16 @@
                     Carrinho <span>🛒 {{ carrinho|length }}</span>
                 </a>
             </li>
+            {% if request.user.is_authenticated %}
+            <li>
+                {{ request.user.get_full_name }}
+                <a href="{% url 'logoutuser' %}">🔌</a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'loginuser' %}" role="button"
+                   class="outline">Entrar</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
     {% block conteudo %}
