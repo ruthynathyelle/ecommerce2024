@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'ecommerce2024',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'alunoifro',
+        'PASSWORD': 'root',
         'PORT': '3306',
     }
 }

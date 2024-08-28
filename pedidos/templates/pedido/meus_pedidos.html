@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+    <article>
+        <h1>Meus Pedidos</h1>
+        {% if pedidos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID do Pedido</th>
+                    <th>Imagem</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço unitário</th>
+                    <th>Total</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                    {% for item in pedido.itens_pedido.all %}
+                    {% with prod=item.produto %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>
+                            <img src="{% if prod.imagem %} {{ prod.imagem.url }} {% else %} {% static 'imagens/notfound.jfif' %} {% endif %}"
+                                 alt="imagem do produto {{ prod.nome }}"
+                                 width="90" height="100">
+                        </td>
+                        <td>{{ prod.nome }}</td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>R$ {{ item.preco }}</td>
+                        <td>R$ {{ item.get_total }}</td>
+
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                {% empty %}
+                    <tr>
+                        <td colspan="7">Você ainda não fez nenhum pedido.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Você ainda não fez nenhum pedido.</p>
+        {% endif %}
+        <!-- Adicione um link de pagamento se aplicável -->
+        <a href="" role="button" class="primary">
+            Efetuar pagamento
+        </a>
+
+    </article>
+{% endblock %}

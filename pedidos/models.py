@@ -34,6 +34,11 @@ class ItemPedido(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     quantidade = models.PositiveSmallIntegerField(default=1)
 
+    def get_total(self):
+        return self.preco * self.quantidade
+
+
+
     class Meta:
         verbose_name = 'Item Pedido'
         verbose_name_plural = 'Itens Pedido'

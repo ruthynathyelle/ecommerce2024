@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView
 
 from carrinho.carrinho import Carrinho
 from pedidos.forms import PedidoModelForm
@@ -28,6 +28,9 @@ class PedidoCreateView(LoginRequiredMixin, CreateView):
         self.request.session['idpedido'] = pedido.id
         return redirect('resumopedido')
 
+    def get_total(self):
+        return sum(item.get_total() for item in self.itens_pedido.all())
+
 
 class ResumoPedidoTemplateView(TemplateView):
     template_name = 'pedido/resumopedido.html'
@@ -36,3 +39,12 @@ class ResumoPedidoTemplateView(TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx['pedido'] = Pedido.objects.get(id=self.request.session.get('idpedido'))
         return ctx
+
+
+class MeusPedidosListView(LoginRequiredMixin, ListView):
+    model = Pedido
+    template_name = 'pedido/meus_pedidos.html'
+    context_object_name = 'pedidos'
+
+    def get_queryset(self):
+        return Pedido.objects.filter(cliente=self.request.user)

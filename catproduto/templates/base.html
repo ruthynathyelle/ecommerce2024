@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -15,11 +15,13 @@
         <ul>
             <li><a href="#">Sobre</a></li>
             <li><a href="{% url 'listallprod' %}">Produtos</a></li>
+
             <li><a href="{% url 'carrinhodetalhe' %}">
                     Carrinho <span>🛒 {{ carrinho|length }}</span>
                 </a>
             </li>
             {% if request.user.is_authenticated %}
+             <li><a href="{% url 'meus_pedidos' %}">Meus Pedidos</a></li>
             <li>
                 {{ request.user.get_full_name }}
                 <a href="{% url 'logoutuser' %}">🔌</a>
